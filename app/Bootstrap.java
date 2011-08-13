@@ -10,14 +10,14 @@ public class Bootstrap extends Job {
 
         for (int i = 0; i < 81; i++) {
 
-            for (int j = 0; j < Math.floor(Math.random() * 10) + 1; j++)
-                new Vote("AKP", String.valueOf(i)).save();
-            for (int j = 0; j < Math.floor(Math.random() * 10) + 1; j++)
-                new Vote("CHP", String.valueOf(i)).save();
-            for (int j = 0; j < Math.floor(Math.random() * 10) + 1; j++)
-                new Vote("MHP", String.valueOf(i)).save();
-            for (int j = 0; j < Math.floor(Math.random() * 10) + 1; j++)
-                new Vote("Diger", String.valueOf(i)).save();
+                int j =(int)Math.floor(Math.random() * 10) + 1;
+                new Vote("AKP", String.valueOf(i),j).save();
+                j =(int)Math.floor(Math.random() * 10) + 1;
+                new Vote("CHP", String.valueOf(i),j).save();
+                j =(int)Math.floor(Math.random() * 10) + 1;
+                new Vote("MHP", String.valueOf(i),j).save();
+                j =(int)Math.floor(Math.random() * 10) + 1;
+                new Vote("Diger", String.valueOf(i),j).save();
         }
     }
 }

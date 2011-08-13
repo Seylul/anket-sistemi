@@ -79,7 +79,7 @@ ajax_cagrisi2(r);
 				var cnt = arr[obj.id];
 				
 				
-				
+				if(i<=80){
 				for ( var j = 0; j < 4; j++)
 					paths[cnt].vote[j] = data[i][j];
 				
@@ -94,6 +94,7 @@ ajax_cagrisi2(r);
 					Num2 -= data[i][1];
 					Num3 -= data[i][2];
 					Num4 -= data[i][3];
+				}
 				}
 				barchartciz(Num1, Num2, Num3, Num4);
 				renkle(cnt);
