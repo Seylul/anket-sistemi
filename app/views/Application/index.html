@@ -6,12 +6,14 @@
 	var Num3 = 0;
 	var Num4 = 0;
 	var sayi = 0;
-	var rap = Raphael(1040, 0, 500, 500);
-	var ra = Raphael(0, 0, 935, 200);
-
+	var ra=null;
+	var rap=null;
+	var r=null;
+	
 	$(function() {
-
-		var r = ScaleRaphael('map', 1030, 820), attributes = {
+		 rap = ScaleRaphael('ali2',250,200);
+		 ra  = ScaleRaphael('ali1',760,200);
+		 r = ScaleRaphael('map',1024,568), attributes = {
 			fill : '#fff',
 			stroke : '#3899E6',
 			'stroke-width' : 1,
@@ -22,7 +24,7 @@
 		Plaka = new Array();
 		var obj;
 ajax_cagrisi2(r);
-		r.changeSize(1024, 768, true, false);
+		r.changeSize(1024,568, true, false);
 	});
 	function ajax_cagrisi(plaka, cnt, obj) {
 
@@ -218,7 +220,7 @@ ajax_cagrisi2(r);
 			"font-size" : 20
 		});
 
-		var pie = rap.g.piechart(100, 100, 60, [ a, b, c, d ], {
+		var pie = rap.g.piechart(60,100, 60, [ a, b, c, d ], {
 			legend : [ "%%.%% AKP", "%%.%% CHP", "%%.%% MHP", "%%.%% DİĞER" ],
 			legendpos : "east",
 			href : [ "http://ktuluceng.com", "http://ktuluceng.com",
@@ -266,9 +268,9 @@ ajax_cagrisi2(r);
 			});
 		};
 		ra.g.txtattr.font = "20px 'Fontin Sans', Fontin-Sans, sans-serif";
-		ra.g.text(600, 50, "2011 TÜRKİYE GENELİ OYLAMA SONUÇLARI");
+		ra.g.text(500,30, "2011 TÜRKİYE GENELİ ANKET SONUÇLARI");
 
-		ra.g.hbarchart(235, 60, 700, 70, [ [ a ], [ b ], [ c ], [ d ] ], {
+		ra.g.hbarchart(150,60,570,55, [ [ a ], [ b ], [ c ], [ d ] ], {
 			colors : [ 'orange', 'red', 'green', 'blue' ],
 			stacked : true
 		}).hover(fin, fout);
@@ -277,8 +279,18 @@ ajax_cagrisi2(r);
 </script>
 
 <div class="wrapper">
-	<div id="map"></div>
+    
+	<div id="ali" >
+    <div id="ali1"></div>
+    <div id="ali2"></div>
+    <div id="map"></div>
+    </div>
+    
+    
 </div>
+
+
+<!-- 
 <table>
 	<form action="">
 		<tr>
@@ -312,3 +324,4 @@ ajax_cagrisi2(r);
 	</form>
 
 </table>
+-->
