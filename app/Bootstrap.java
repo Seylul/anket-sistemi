@@ -11,7 +11,7 @@ public class Bootstrap extends Job {
         for (int i = 0; i < 81; i++) {
 
                 int j =(int)Math.floor(Math.random() * 10) + 1;
-                new Vote("AKP", String.valueOf(i),j).save();
+                new Vote("eylul", String.valueOf(i),j).save();
                 j =(int)Math.floor(Math.random() * 10) + 1;
                 new Vote("CHP", String.valueOf(i),j).save();
                 j =(int)Math.floor(Math.random() * 10) + 1;

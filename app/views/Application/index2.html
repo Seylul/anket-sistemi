@@ -1,33 +1,20 @@
 #{extends 'main.html' /} #{set title:'Home' /}
 
-<div class="wrapper">
-	
-	<div id="stats"></div>
-	<div id="map"></div>
-	
-</div>
 <script type="text/javascript">
 	var Num1 = 0;
 	var Num2 = 0;
 	var Num3 = 0;
 	var Num4 = 0;
 	var sayi = 0;
-	var pasta = Raphael(1450, 170, 300, 250);
-	var stats = Raphael("stats"	,900, 150);
-	var yonetim = Raphael(1450,70,220,55);
-	//var rectangle = yonetim.rect(1450, 70, 0, 100);
-	//rectangle.g.txtattr.font = "25px 'Fontin Sans', Fontin-Sans, sans-serif";
-	//rectangle.g.text(200,70," Anket seciniz...");
-	//rectangle.g.txtattr.href= "http://google.com"	;
-	var firstval = "eeee" ;
-	var secondval ;
-	var thirdval;
-	var forthval;
-	var values;
+	var ra=null;
+	var rap=null;
+	var r=null;
+	
 	$(function() {
-
-		var harita = ScaleRaphael('map', 1030, 820), attributes = {
-			fill : '#fff',
+		 rap = ScaleRaphael('ali2',250,200);
+		 ra  = ScaleRaphael('ali1',760,200);//760,200//900,1000
+		 r = ScaleRaphael('map',1024,568), attributes = {
+			fill : '#0000',
 			stroke : '#3899E6',
 			'stroke-width' : 1,
 			'stroke-linejoin' : 'round'
@@ -35,10 +22,9 @@
 
 		arr = new Array();
 		Plaka = new Array();
-		
 		var obj;
-ajax_cagrisi2(harita);
-		harita.changeSize(1024, 768, true, false);
+ajax_cagrisi2(r);
+		r.changeSize(1024,568, true, false);
 	});
 	function ajax_cagrisi(plaka, cnt, obj) {
 
@@ -48,7 +34,6 @@ ajax_cagrisi2(harita);
 			dataType : "json",
 			data : {
 				il : plaka
-				
 			},
 			success : function(data) {
 				for ( var i = 0; i < 4; i++)
@@ -74,9 +59,9 @@ ajax_cagrisi2(harita);
 		})
 
 	}
-
-	function ajax_cagrisi2(harita) {
-
+	
+	function ajax_cagrisi2(r) {
+		
 		arr = new Array();
 		Plaka = new Array();
 		var obj;
@@ -91,15 +76,15 @@ ajax_cagrisi2(harita);
 			success : function(data) {
 				for( var country in paths){
 				i++;
-				obj = harita.path(paths[country].path);
+				obj = r.path(paths[country].path);
 				arr[obj.id] = country;
 				var cnt = arr[obj.id];
-
-
+				
+				
 				if(i<=80){
 				for ( var j = 0; j < 4; j++)
 					paths[cnt].vote[j] = data[i][j];
-
+				
 				Num1 += data[i][0];
 				Num2 += data[i][1];
 				Num3 += data[i][2];
@@ -118,8 +103,8 @@ ajax_cagrisi2(harita);
 				obj.attr({
 					fill : paths[cnt].color
 				});
-
-
+			
+				
 				obj.click(function() {
 
 					var point = this.getBBox(0);
@@ -130,8 +115,7 @@ ajax_cagrisi2(harita);
 
 					ajax_cagrisi(plaka, cnt, obj);
 
-					piechartciz(paths[arr[this.id]].vote[0], 
-							paths[arr[this.id]].vote[1],
+					ciz(paths[arr[this.id]].vote[0], paths[arr[this.id]].vote[1],
 							paths[arr[this.id]].vote[2],
 							paths[arr[this.id]].vote[3], name);
 				});
@@ -151,22 +135,22 @@ ajax_cagrisi2(harita);
 							+ paths[arr[this.id]].vote[2]
 							+ paths[arr[this.id]].vote[3];
 					$("#Toplam").val(sum);
-					$("#firstval").val(
+					$("#AKP").val(
 							"%"
 									+ Math.round(100 * paths[arr[this.id]].vote[0]
 											/ sum * 100) / 100 + "    ("
 									+ paths[arr[this.id]].vote[0] + "oy)");
-					$("#secondval").val(
+					$("#CHP").val(
 							"%"
 									+ Math.round(100 * paths[arr[this.id]].vote[1]
 											/ sum * 100) / 100 + "    ("
 									+ paths[arr[this.id]].vote[1] + "oy)");
-					$("#thirdval").val(
+					$("#MHP").val(
 							"%"
 									+ Math.round(100 * paths[arr[this.id]].vote[2]
 											/ sum * 100) / 100 + "    ("
 									+ paths[arr[this.id]].vote[2] + "oy)");
-					$("#forthval").val(
+					$("#Diger").val(
 							"%"
 									+ Math.round(100 * paths[arr[this.id]].vote[3]
 											/ sum * 100) / 100 + "    ("
@@ -195,8 +179,8 @@ ajax_cagrisi2(harita);
 					});
 					return false;
 				});
-
-
+				
+				
 				}
 			}
 		})
@@ -217,33 +201,30 @@ ajax_cagrisi2(harita);
 		if (biggest == 0)
 			paths[country].color = 'orange';
 		else if (biggest == 1)
-			paths[country].color = 'blue';
+			paths[country].color = 'red';
 		else if (biggest == 2)
 			paths[country].color = 'green';
 		else
-			paths[country].color = 'red';
+			paths[country].color = 'blue';
 
 		return false;
 	}
 
-	
+	function ciz(a, b, c, d, e) {
 
+		rap.clear();
 
-	function piechartciz(a, b, c, d, e) {
+		rap.g.txtattr.font = "12px 'Fontin Sans', Fontin-Sans, sans-serif";
 
-		pasta.clear();
-
-		pasta.g.txtattr.font = "12px 'Fontin Sans', Fontin-Sans, sans-serif";
-
-		pasta.g.text(105, 25, e).attr({
+		rap.g.text(105, 25, e).attr({
 			"font-size" : 20
 		});
 
-		var pie = pasta.g.piechart(100, 100, 60, [ a, b, c, d ], {
-			legend : [ "%%.%% AKP", "%%.%% CHP", "%%.%% MHP", "%%.%% Diger" ],
-			//legendpos : "north",
-			href : [ "http://seylul.github.com", "http://seylul.github.com",
-					"http://seylul.github.com", "http://seylul.github.com" ],
+		var pie = rap.g.piechart(60,100, 60, [ a, b, c, d ], {
+			legend : [ "%%.%% AKP", "%%.%% CHP", "%%.%% MHP", "%%.%% DİĞER" ],
+			legendpos : "east",
+			href : [ "http://ktuluceng.com", "http://ktuluceng.com",
+					"http://ktuluceng.com", "http://ktuluceng.com" ],
 			colors : [ 'orange', 'red', 'green', 'blue' ]
 		});
 		pie.hover(function() {
@@ -274,7 +255,7 @@ ajax_cagrisi2(harita);
 
 	function barchartciz(a, b, c, d) {
 
-		stats.clear();
+		ra.clear();
 		fin = function() {
 			this.flag = r.g
 					.popup(this.bar.x, this.bar.y, this.bar.value || "0")
@@ -286,61 +267,61 @@ ajax_cagrisi2(harita);
 				this.remove();
 			});
 		};
-		stats.g.txtattr.font = "20px 'Fontin Sans', Fontin-Sans, sans-serif";
-		stats.g.text(600, 50, "2012 TÜRKİYE GENELİ ANKET SONUÇLARI");
+		ra.g.txtattr.font = "20px 'Fontin Sans', Fontin-Sans, sans-serif";
+		ra.g.text(500,30, "2011 TÜRKİYE GENELİ ANKET SONUÇLARI");
 
-		stats.g.hbarchart(235, 60, 700, 70, [ [ a ], [ b ], [ c ], [ d ] ], {
-			colors : [ 'orange', 'blue', 'green', 'red' ],
+		ra.g.hbarchart(150,60,570,55, [ [ a ], [ b ], [ c ], [ d ] ], {
+			colors : [ 'orange', 'red', 'green', 'blue' ],
 			stacked : true
 		}).hover(fin, fout);
 		return false;
 	}
-	function degerata2(a,b,c,d){
-		
-		firstval=a;
-		secondval=b;
-		thirdval=c;
-		forthval=d;
-		document.write(firstval);
-		return false;
-	}
-	
 </script>
 
-<table id="tablo">
+<div class="wrapper">
+    
+	<div id="ali" >
+    <div id="ali1"></div>
+    <div id="ali2"></div>
+    </div>
+    <div id="map"></div>
+    
+    
+</div>
+
+
+<!-- 
+<table>
 	<form action="">
-		
 		<tr>
 			<td>Toplam:</td>
-			<td><input id="Toplam" style="text-align: left; width: 3em " /> oy</td>
+			<td><input id="Toplam" style="text-align: left; width: 3em" />
+				oy.</td>
+
 		</tr>
-		
 		<tr>
-			<td><script language="JavaScript"> document.write(degerata2(firstval));</script>  </td>
-			<td><input id="firstval" />
+			<td>AKP:</td>
+			<td><input id="AKP" />
 			</td>
- 
+
 		</tr>
-		
 		<tr>
 			<td>CHP:</td>
-			<td><input id="secondval" type="text" value="" />
+			<td><input id="CHP" type="text" value="" />
 			</td>
 		</tr>
-		
 		<tr>
 			<td>MHP:</td>
-			<td><input id="thirdval" type="text" value="" />
+			<td><input id="MHP" type="text" value="" />
 			</td>
 		</tr>
 
 		<tr>
-			<td>Diger:</td>
-			<td><input id="forthval" type="text" value="" />
+			<td>DiĞER:</td>
+			<td><input id="Diger" type="text" value="" />
 			</td>
 		</tr>
-	
 	</form>
 
 </table>
-
+-->

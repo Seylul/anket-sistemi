@@ -1,10 +1,7 @@
 package controllers;
-
 import play.*;
 import play.mvc.*;
-
 import java.util.*;
-
 import models.*;
 
 public class Application extends Controller{	
@@ -37,13 +34,14 @@ public class Application extends Controller{
     	renderJSON(lists);
     }
 
-    public static void getVote(String il) {
+    public static void getVote(String il, java.lang.String kategori) {
     	ArrayList<Long> liste;
     	liste =new ArrayList<Long>();
-    	liste.add(Vote.count("category=? and location=?", "AKP",il));
-    	liste.add(Vote.count("category=? and location=?", "CHP",il)) ;
-    	liste.add(Vote.count("category=? and location=?", "MHP",il)) ;
-    	liste.add(Vote.count("category=? and location=?", "Diger",il));
+    
+    	liste.add(Vote.count("category=? and location=?", kategori,il));
+    	liste.add(Vote.count("category=? and location=?", kategori,il)) ;
+    	liste.add(Vote.count("category=? and location=?", kategori,il)) ;
+    	liste.add(Vote.count("category=? and location=?", kategori,il));
     	renderJSON(liste);
     }  
     

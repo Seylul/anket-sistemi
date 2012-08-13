@@ -9,43 +9,16 @@ font-size:11px;
 
 .wrapper {
 margin:0 auto;
-width:1024px;
-height:768px;
-border-style:solid;
+width:1000px;
 position:relative;
 }
 
-#ali{
-float:none;
-width:1024px;
-height:200px;
-border-style:solid;	
-}
-
-#ali1 {
-float:left;
-width:774px;
-border-style:solid;
-}
-#ali2 {
-float:left;
-width:250px;
-border-style:solid;
-}
-#ali3{
-float:none;
-width:1024;
-height:568;
-}
 #map {
-float:none;
-width:1024px;
-height:568px;
-border-style:solid;
+float:left;
 clear:both;
+width:1200px;
+height:820px;
 }
-
-
 
 .point {
 position:absolute;
@@ -74,7 +47,7 @@ vertical-align:middle;
 margin-right:10px;
 }
 
-a img {
-border:none;
+#secim {
+	top: 100px;
+	right: -10px;
 }
-

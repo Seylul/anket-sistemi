@@ -1,2 +1,49 @@
 #{extends 'main.html' /} #{set title:'Yönetim' /}
 
+<script type="text/javascript">
+
+
+
+function manageshow() {
+	var w = document.myform.mylist.selectedIndex;
+   	//var selected_text = document.myform.mylist.options[w].text;
+   	if (w==1){
+
+   		window.alert("Futbol takımı");
+   	}
+   	else if(w==2){
+   		var firstval= "AKP";
+   		var secondval= "CHP";
+   		var thirdval = "MHP";
+   		var forthval = "Diger";
+   		window.location="@{index()}";
+   		
+   	}
+   	else if(w==3){
+   		window.alert("ne içersiniz");
+   	}
+}
+
+
+
+</script>
+
+<div id= "manage" align="center" >
+	<img src="../../../public/images/anket.jpg"/>
+	
+<form name="myform">
+<select style="width:480px" name="mylist" onChange="manageshow()">
+	<option value="" style="display:none;"></option>
+    <option value="Futbol_Takimi">İllere göre futbol takımı Dağımılı </option>
+    <option value ="Siyasi_Parti"> İllere göre Siyasi Parti Dağılımı</option>
+    <option value="Icecek">En beğenilen içecek</option>
+    
+</select>
+</form>
+</div>
+
+
+
+
+				
+          
