@@ -7,7 +7,8 @@ import models.*;
 public class Application extends Controller{	
 	
 
-    public static void index() {     
+    public static void index() {   
+        
         render();
     }
     
@@ -34,16 +35,39 @@ public class Application extends Controller{
     	renderJSON(lists);
     }
 
-    public static void getVote(String il, java.lang.String kategori) {
+    public static void getVote(String il) {
     	ArrayList<Long> liste;
     	liste =new ArrayList<Long>();
     
-    	liste.add(Vote.count("category=? and location=?", kategori,il));
-    	liste.add(Vote.count("category=? and location=?", kategori,il)) ;
-    	liste.add(Vote.count("category=? and location=?", kategori,il)) ;
-    	liste.add(Vote.count("category=? and location=?", kategori,il));
+    	liste.add(Vote.count("category=? and location=?", il));
+    	liste.add(Vote.count("category=? and location=?", il)) ;
+    	liste.add(Vote.count("category=? and location=?", il)) ;
+    	liste.add(Vote.count("category=? and location=?", il));
     	renderJSON(liste);
     }  
+
+    public static void kategori() {
+
+   	HashMap<String,List<String>> map = new HashMap<String,List<String>>();
+   	List<String> data = new ArrayList<String>();
+
+   	data.add("%36");
+   	data.add("%12");
+   	data.add("%5");
+   	data.add("%10");
+   	data.add("%7");
+   	data.add("%2");
+   	map.put("Balıkesir",data);
+data = new ArrayList<String>();
+   	data.add("%34");
+   	data.add("%12");
+   	data.add("%5");
+   	data.add("%10");
+   	data.add("%7");
+   	map.put("Ankara",data);
+
+   	renderJSON(map);
+    }
     
     
 }

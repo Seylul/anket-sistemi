@@ -6,12 +6,19 @@
 	<div id="map"></div>
 	
 </div>
+
+
 <script type="text/javascript">
 	var Num1 = 0;
 	var Num2 = 0;
 	var Num3 = 0;
 	var Num4 = 0;
 	var sayi = 0;
+	var firstval ;
+	var secondval ;
+	var thirdval  ;
+	var forthval  ;
+
 	var pasta = Raphael(1450, 170, 300, 250);
 	var stats = Raphael("stats"	,900, 150);
 	var yonetim = Raphael(1450,70,220,55);
@@ -19,11 +26,7 @@
 	//rectangle.g.txtattr.font = "25px 'Fontin Sans', Fontin-Sans, sans-serif";
 	//rectangle.g.text(200,70," Anket seciniz...");
 	//rectangle.g.txtattr.href= "http://google.com"	;
-	var firstval = "eeee" ;
-	var secondval ;
-	var thirdval;
-	var forthval;
-	var values;
+	
 	$(function() {
 
 		var harita = ScaleRaphael('map', 1030, 820), attributes = {
@@ -59,7 +62,7 @@ ajax_cagrisi2(harita);
 				Num4 += data[3];
 				sayi++;
 				if (sayi >= 82) {
-
+               
 					Num1 -= data[0];
 					Num2 -= data[1];
 					Num3 -= data[2];
@@ -88,8 +91,10 @@ ajax_cagrisi2(harita);
 			dataType : "json",
 			data : {
 			},
-			success : function(data) {
+			success : function(data) { 
+		
 				for( var country in paths){
+			
 				i++;
 				obj = harita.path(paths[country].path);
 				arr[obj.id] = country;
@@ -97,21 +102,21 @@ ajax_cagrisi2(harita);
 
 
 				if(i<=80){
-				for ( var j = 0; j < 4; j++)
-					paths[cnt].vote[j] = data[i][j];
+					for ( var j = 0; j < 4; j++)
+						paths[cnt].vote[j] = data[i][j];
 
-				Num1 += data[i][0];
-				Num2 += data[i][1];
-				Num3 += data[i][2];
-				Num4 += data[i][3];
-				sayi++;
-				if (sayi >= 82) {
+					Num1 += data[i][0];
+					Num2 += data[i][1];
+					Num3 += data[i][2];
+					Num4 += data[i][3];
+					sayi++;
+					if (sayi >= 82) {
 
-					Num1 -= data[i][0];
-					Num2 -= data[i][1];
-					Num3 -= data[i][2];
-					Num4 -= data[i][3];
-				}
+						Num1 -= data[i][0];
+						Num2 -= data[i][1];
+						Num3 -= data[i][2];
+						Num4 -= data[i][3];
+					}
 				}
 				barchartciz(Num1, Num2, Num3, Num4);
 				renkle(cnt);
@@ -295,15 +300,70 @@ ajax_cagrisi2(harita);
 		}).hover(fin, fout);
 		return false;
 	}
-	function degerata2(a,b,c,d){
-		
-		firstval=a;
-		secondval=b;
-		thirdval=c;
-		forthval=d;
-		document.write(firstval);
-		return false;
-	}
+	
+
+	
+
+	$(document).ready(function(){
+
+
+	$("#manage").dialog({
+    	height: 400,
+    	width:  500,
+    	modal: true,
+    	buttons : {
+                "Ok" : function() {              
+                   $(this).dialog("close");
+                   var $w =$(this).find('option:selected').val()
+
+                },
+                "Cancel" : function() {
+                   $(this).dialog("close");
+                }
+        }
+	});
+	
+
+
+		$.ajax({
+			type : 'GET',
+			url : "@{Application.kategori()}",
+			dataType : "json",
+			data : {
+			},
+			success : function(data) { 
+		       console.log(data);
+ 
+		    }
+			
+		})
+
+	});
+	
+
+
+
+    function manageshow() {
+	var w = document.mylist.value;
+   	//var selected_text = document.myform.mylist.options[w].text;
+    if (w=="Futbol_Takimi"){
+
+   		window.alert("Futbol takımı");
+   	}
+   	else if(w=="Siyasi_Parti"){
+   		var firstval= "AKP";
+   		var secondval= "CHP";
+   		var thirdval = "MHP";
+   		var forthval = "Diger";
+   		
+   		
+   	}
+   	else if(w=="Icecek"){
+   		window.alert("ne içersiniz");
+   	}
+}
+
+
 	
 </script>
 
@@ -316,7 +376,10 @@ ajax_cagrisi2(harita);
 		</tr>
 		
 		<tr>
-			<td><script language="JavaScript"> document.write(degerata2(firstval));</script>  </td>
+			<td><script language="JavaScript">
+
+             
+			 document.write("AKP:");</script>   </td>
 			<td><input id="firstval" />
 			</td>
  
@@ -344,3 +407,19 @@ ajax_cagrisi2(harita);
 
 </table>
 
+
+
+
+
+<div id= "manage" align="center" title="ANKET SEÇİNİZ">
+
+
+<select style="width:450px" name="mylist" onChange="manageshow()">
+	<option value="" style="display:none;"></option>
+    <option value="Futbol_Takimi">İllere göre futbol takımı Dağımılı </option>
+    <option value ="Siyasi_Parti"> İllere göre Siyasi Parti Dağılımı</option>
+    <option value="Icecek">En beğenilen içecek</option>
+    
+</select>
+
+</div>
